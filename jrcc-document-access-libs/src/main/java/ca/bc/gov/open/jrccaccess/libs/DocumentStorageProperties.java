@@ -23,7 +23,7 @@ public class DocumentStorageProperties {
 	/**
 	 * Default construtor
 	 * @param key - The document key
-	 * @param md5 - The document MD5 in hex format
+	 * @param digest - The document MD5 in hex format
 	 */
 	@JsonCreator
 	public DocumentStorageProperties(

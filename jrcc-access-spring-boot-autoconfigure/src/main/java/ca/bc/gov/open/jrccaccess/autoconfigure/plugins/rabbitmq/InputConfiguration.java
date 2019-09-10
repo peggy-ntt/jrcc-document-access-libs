@@ -101,6 +101,11 @@ public class InputConfiguration {
 				.to(dlxDocumentReadyExchange(accessProperties, rabbitMqInputProperties)).with("#");
 	}
 
+//	@Bean
+//	public RabbitListenerAroundAdvice rabbitListenerAroundAdvice(){
+//		RabbitListenerAroundAdvice advice = new RabbitListenerAroundAdvice();
+//		return advice;
+//	}
 	/**
 	 * Provides as default factory for RabbitListeners
 	 * 
@@ -112,10 +117,13 @@ public class InputConfiguration {
 	public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory,
 			@Qualifier("jsonMessageConverter") MessageConverter messageConverter, 
 			DocumentInputPreProcessor documentInputPreProcessor,
-			DocumentInputErrorHandler documentInputErrorHandler) {
+			DocumentInputErrorHandler documentInputErrorHandler,
+			RabbitListenerAroundAdvice rabbitListenerAroundAdvice
+			) {
 		SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
 		factory.setConnectionFactory(connectionFactory);
 		factory.setMessageConverter(messageConverter);
+		factory.setAdviceChain(rabbitListenerAroundAdvice);
 		factory.setAfterReceivePostProcessors(documentInputPreProcessor);
 		factory.setErrorHandler(documentInputErrorHandler);
 		return factory;

@@ -1,8 +1,9 @@
-spring:
-   main:
-      web-application-type: none
+#spring:
+#   main:
+#      web-application-type: none
 logging:
   level:
+    root: DEBUG
     ca:
       gov:
         bc: DEBUG
@@ -13,7 +14,7 @@ bcgov:
   access:
     input:
       document-type: test-doc
-      plugin: console
+      plugin: rabbitmq
     output:
       document-type: test-doc
       plugin: console
